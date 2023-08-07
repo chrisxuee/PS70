@@ -87,14 +87,40 @@ The wheel assembly is attached to the two motor mounts, which is then secured on
 <img src="drivechain.jpg" alt="dc" width="600">
 <img src="drivechain1.jpg" alt="dc1" width="600">
 
+Lastly, the servo motor is inserted into the servo mount, which is then glued into place at the rear end of the device. I 3D printed 5x identical linkage rods and attached them to the servo, where 30 degrees corresponds to neutral, and 150 degrees corresponds to fully actuated. Using 3 of the rods, I am able to create a parallel motion linkage to raise and lower whatever writing utensil that needs to be used. In this case, chalk. Below are the Fusion360 model and sketch for the rods. 
+
+<img src="rodsk.png" alt="rs" width="600">
+<img src="rods.png" alt="r" width="600">
+
 ## Electronic setup:
 
-For this device, I plan on using 3 buttons as input devices to drive the stepper motor and the servo motor, which are the output devices. For the setup, I connected 3 buttons to 3 different digital pins (pin 2, pin 3, pin 4) on the microcontroller and each pin would trigger a response. Initially, the buttons were set as pull down. However, the setup did not work even trying resistors from 220 ohms to 10k ohms. To solve this, the buttons were reset to pull up. On a separate breadboard, the NEMA-17 stepper motor is connected to the A4988 chopper motor driver. The two breadboards have their grounds connected. The motor driver, which only uses two pins (pin 12, pin 13) is then powered by V_in, which is hooked to a 9V battery**. Here is a [link](finalpcode.txt) to the code. 
+For this device, I plan on using 3 buttons as input devices to drive the stepper motor and the servo motor, which are the output devices. For the setup, I connected 3 buttons to 3 different digital pins (pin 2, pin 3, pin 4) on the microcontroller and each pin would trigger a response. Initially, the buttons were set as pull down. However, the setup did not work even trying resistors from 220 ohms to 10k ohms. To solve this, the buttons were reset to pull up. On a separate breadboard, the NEMA-17 stepper motor is connected to the A4988 chopper motor driver. The two breadboards have their grounds connected. The servo is powerd using the 5V pin and is controlled using pin 9. The motor driver, which only uses two pins (pin 12, pin 13) is then powered by V_in, which is hooked to a 9V battery**. Here is a [link](finalpcode.txt) to the code. 
 <br>
 (*The 9V battery is technically unsuitable for powering this device because it supplies very low amounts of current and is typically used for devices such as smoke detectors, not DC motors*.) 
-
-
+<br>
+For this specific wheel setup, each foot of distance corresponds to 242 steps on the stepper motor. This calculated using the diameter of the wheel (80mm), the amount of steps per revolution (200 steps), and 304.8mm per foot. However, to ensure that the conversion works as intended, the stepper motor must be receiving enough voltage to prevent any skipped steps. 
+<center>
 <img src="electricsetup.jpg" alt="setup" width="600">
+</center>
+
+
+## Finished product:
+
+<img src="sideprofile.jpg" alt="setup" width="600">
+<img src="servosetup.jpg" alt="setup" width="600">
+
+The videos below showcase the "1 foot" function of the device. To use the device, the user needs to align the rear end of the device with the "0" mark of what they want to measure. They then need to select one of the distances to measure out, and the device will travel exactly to that distance and mark it with a writing utensil. 
+
+<video width="600" autoplay muted loop>
+  <source src="demo.mp4" type="video/mp4">
+</video>
+<video width="600" autoplay muted loop>
+  <source src="testrun.mp4" type="video/mp4">
+</video>
+
+## Next Steps: 
+
+
 
 Go back home: [link](./index.html).
 
