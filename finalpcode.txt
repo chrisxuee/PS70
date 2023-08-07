@@ -1,0 +1,93 @@
+#include <AccelStepper.h>
+#include <Servo.h>
+
+const int stepPin = 13;  // blue
+const int dirPin = 12;   // orange
+const int button1 = 2;
+const int button2 = 3;
+const int button3 = 4;
+
+int pressed1 = HIGH;
+int pressed2 = HIGH;
+int pressed3 = HIGH;
+bool buttonPressed = false;
+
+Servo myservo;  // create servo object to control a servo
+
+// Define a stepper and the pins it will use
+AccelStepper stepper(1, stepPin, dirPin);  // initialise accelstepper for a two wire board
+
+
+
+class stepperMover {
+  int moveTo;
+  int maxSpeed;
+  int accel;
+
+public:
+  stepperMover(int mT, int mS, int aL) {
+    moveTo = mT;
+    maxSpeed = mS;
+    accel = aL;
+  }
+
+  void update() {
+    delay(1000);
+    stepper.move(moveTo);
+    stepper.setMaxSpeed(maxSpeed);
+    stepper.setAcceleration(accel);
+
+  }
+};
+
+
+stepperMover buttonMove1(-242, 100, 50);
+stepperMover buttonMove2(-1210, 100, 50);
+stepperMover buttonMove3(-2420, 100, 50);
+
+void setup() {
+  pinMode(button1, INPUT_PULLUP);
+  pinMode(button2, INPUT_PULLUP);
+  pinMode(button3, INPUT_PULLUP);
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+  myservo.write(30);   //0 position
+  Serial.begin(9600);
+}
+
+
+void loop() {
+  pressed1 = digitalRead(button1);
+  pressed2 = digitalRead(button2);
+  pressed3 = digitalRead(button3);
+  //
+  //Serial.print("pressed2"); Serial.println(pressed2);
+
+  if (pressed1 == LOW) 
+  {
+    buttonPressed = true;
+    Serial.print("pressed1: "); Serial.println(pressed1);
+    buttonMove1.update();
+    
+    
+  }
+  if(pressed2 == LOW)
+  {
+    buttonPressed = true;
+    Serial.print("pressed2: "); Serial.println(pressed2);
+    buttonMove2.update();
+  }
+  if(pressed3 == LOW)
+  {
+    buttonPressed = true;
+    Serial.print("pressed3: "); Serial.println(pressed3);
+    buttonMove3.update();
+  }
+
+
+ stepper.run();
+  if(buttonPressed == true && !stepper.isRunning()){
+      Serial.println("DONE");
+      myservo.write(150); 
+      buttonPressed = false;
+    }
+}

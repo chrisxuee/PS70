@@ -26,25 +26,75 @@
 
 ## Idea 1:
 
-Concept: One of the struggles in life is when it's raining and my car's wiper is leaving streaks on the window because of trapped debris/dead plants. As someone who park his car outdoors, I often find myself in the situation where there's a constant streak left on the windshield when the car's already on the highway. 
- 
 
-<img src="streakingwiper.jpg" alt="Streakmarks" width="500" height="600">
-<img src="coasterwheel.jpg" alt="Coasterdesign" width="600" height="600">
+
+Concept: One of the struggles in life is when it's raining and my car's wiper is leaving streaks on the window because of trapped debris/dead plants. As someone who park his car outdoors, I often find myself in the situation where there's a constant streak left on the windshield when the car's already on the highway. 
+
+<img src="streakingwiper.jpg" alt="Streakmarks" height="400">
+<img src="coasterwheel.jpg" alt="Coasterdesign" height="400">
 
 <br>
 How: Using a small wheel-based machine to run along the blade of the wiper to manually clean it while the car is still in motion.
 <br>
 Power: using a small battery pack that could be recharged with a solar panel.
 
+
 ## Idea 2:
+
+
 
 Concept: Creating a small buggy that can measure out certain lengths and mark it using tape. This is useful for jumping events in Track and Field such as the Long Jump, Triple Jump, ETC. because oftentimes when athletes are training alone its difficult to accurately measure out run-up distances with a tape measure by themselves.
 
 How: Create a resonably sized motorized buggy to move certain distances based on the distance entered. Inputs can be registered through buttons or through a capacitive numpad. Motors will drive the vehicle and the distance can be converted from the motors' revolutions. Another motor will spin the roll of tape which would then be cut and stuck to the ground using servos or motors. Using a light sensor, the buggy could then track the difference in value from the white lines to keep it moving in a straight line.
-<br>
-<img src="ljpit.jpg" alt="ljpit" width="500" height="600">
 
+<br>
+<img src="ljpit.jpg" alt="ljpit" height="500">
+<img src="ljtape.jpg" alt="tape" height="500">
+
+<br>
+Background: Performing a long jump/triple jump requires the athlete to run a specified amount of distance before perfectly placing their foot before a line to initiate the jump. However, if the cross the line by just a milimeter, the jump would be marked as invalid. The image below shows a jump that is invalid by just mere milimeters. To mitigate this problem, an athlete has to train themselves to consistently run the same distance to hit maximum velocity before they jump from the designated line. This will require measuring distances of over 100 feet.
+
+<img src="board.jpg" alt="board" height="600">
+<br>
+Final idea: I will be using a NEMA-17 stepper motor to drive the wheel, as well as a servo motor to draw the line. The stepper motor will be powered using a A4988 chopper motor driver. There will be 3 inputs: 3 buttons programmed to move the device by 1 foot, 5 feet, and 10 feet respectively. The design will rest on a tri-wheel setup with the powered wheel in front to mitigate any chances of veering off a straight line.
+
+
+
+## Physical setup: 
+
+To create the chassis for the device, I designed a simple six-sided 2D design and sent it to be cut using the lazer cutter. The cut utilized a piece of 6mm plywood. I used the same wood for the chassis to cut out 4 identical trapezoid pieces with holes to mount the rear axis for the free-spinning wheels. To power the moving device, I will be using a 9V battery to supply enough voltage for the stepper motor configuration (more on this later).
+
+<img src="chassis.png" alt="chassis" width="600">
+<img src="rear mount.png" alt="mount" width="600">
+
+The motor mount for the NEMA-17 stepper motor was sourced from thingiverse.com. The bracket was designed from scratch using Fusion360. Two copies of the wheel bracket design was printed to sandwich the front wheel assembly. 
+
+<img src="mountsketch.png" alt="mountsk" height="500">
+<img src="mount.png" alt="mount" height="500">
+
+The wheel itself was attached onto a powered axle using two attachments designed from Fusion360. 2 copies of this attachment were printed to sandwich the wheel on either side, then secured into place using 5 m3x20 screws.
+
+<img src="nema.png" alt="nema" height="600">
+<img src="wheelcap2.png" alt="cap" height="600">
+
+The servo is attached onto the chassis of the devie through a 3D printed servo bracket using Fusion 360. Below are the measurements and the 3D model of the bracket.
+
+<img src="servoh.png" alt="servo1" width="600">
+<img src="servoholder.png" alt="servo2" width="600">
+
+The wheel assembly is attached to the two motor mounts, which is then secured onto the chassis of the device using screws that screw into pre-drilled holes in the plywood. The rear wheels are inserted onto a 5mm diameter metal rod that feeds through the 4 rear wheel mounts lazer cut from wood. The weels are spaced out using washers, preventing unnecessary friction between the mounts and the sides of the wheels. The stepper motor is mounted directly behind the front wheel assembly, which then powers the wheel using a timing belt attached to geared attachments. There is minimal amount of slack in the timing belt, but not too tight to cause the motor to skip steps due to the torque caused by the tension. 
+
+<img src="drivechain.jpg" alt="dc" width="600">
+<img src="drivechain1.jpg" alt="dc1" width="600">
+
+## Electronic setup:
+
+For this device, I plan on using 3 buttons as input devices to drive the stepper motor and the servo motor, which are the output devices. For the setup, I connected 3 buttons to 3 different digital pins (pin 2, pin 3, pin 4) on the microcontroller and each pin would trigger a response. Initially, the buttons were set as pull down. However, the setup did not work even trying resistors from 220 ohms to 10k ohms. To solve this, the buttons were reset to pull up. On a separate breadboard, the NEMA-17 stepper motor is connected to the A4988 chopper motor driver. The two breadboards have their grounds connected. The motor driver, which only uses two pins (pin 12, pin 13) is then powered by V_in, which is hooked to a 9V battery**. Here is a [link](finalpcode.txt) to the code. 
+<br>
+(*The 9V battery is technically unsuitable for powering this device because it supplies very low amounts of current and is typically used for devices such as smoke detectors, not DC motors*.) 
+
+
+<img src="electricsetup.jpg" alt="setup" width="600">
 
 Go back home: [link](./index.html).
 
